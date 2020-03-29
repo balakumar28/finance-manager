@@ -2,11 +2,6 @@
 -- ***************************************************;
 
 -- ************************************** "enums"
-CREATE TYPE user_type as ENUM
-(
- 'borrower', 'guarantor', 'both'
-);
-
 CREATE TYPE periodicity as ENUM
 (
  'daily', 'weekly', 'monthly'
@@ -29,7 +24,6 @@ CREATE TABLE "users"
  "mail"    varchar(50) NULL,
  "city"    varchar(50) NOT NULL,
  "address" varchar(512) NULL,
- "type"    user_type NOT NULL,
  CONSTRAINT "PK_users" PRIMARY KEY ( "user_id" )
 );
 

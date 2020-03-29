@@ -1,7 +1,6 @@
 package com.smfinance.datamodel.objects;
 
 import java.io.Serializable;
-import java.util.Arrays;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -11,6 +11,7 @@
     <modules>
         <module>datamodel</module>
         <module>webui</module>
+        <module>common-util</module>
     </modules>
     
     <properties>
