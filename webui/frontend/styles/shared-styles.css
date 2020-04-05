@@ -10,3 +10,10 @@
   max-width: 250px;
 }
 
+.top-margin {
+	padding-top: 20px;
+}
+
+.v-grid-hide-checkbox th .v-grid-select-all-checkbox {
+  display: none;
+}

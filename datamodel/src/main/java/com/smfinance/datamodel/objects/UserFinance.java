@@ -20,7 +20,7 @@ public class UserFinance extends UserFinanceBase  implements Serializable
     @JoinColumn(referencedColumnName = "userId")
     private User guarantor;
     private byte[] supportDocument;
-    @OneToMany(mappedBy = "financeId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "paymentId", cascade = CascadeType.ALL)
     private List<Payments> payments = new ArrayList<>();
     
     public User getGuarantor()

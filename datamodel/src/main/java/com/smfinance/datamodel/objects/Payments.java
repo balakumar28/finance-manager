@@ -6,15 +6,20 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "payments")
 public class Payments implements Serializable
 {
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
     private String paymentId;
+    @JoinColumn(referencedColumnName = "financeId")
     private UserFinance financeId;
     private Date dateOfPayment;
     private double amount;
@@ -33,7 +38,7 @@ public class Payments implements Serializable
     {
         return financeId;
     }
-    
+
     public void setFinanceId(UserFinance financeId)
     {
         this.financeId = financeId;

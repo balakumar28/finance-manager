@@ -27,7 +27,8 @@ import com.vaadin.flow.server.PWA;
 @Route
 @PWA(name = "SM Finance Manager",
      shortName = "SMFM App",
-     description = "Finance Manager for SM Finances, a Vaadin application.")
+     description = "Finance Manager for SM Finances, a Vaadin application.",
+     enableInstallPrompt = false)
 @CssImport("./styles/shared-styles.css")
 @CssImport(value = "./styles/vaadin-text-field-styles.css", themeFor = "vaadin-text-field")
 public class MainView extends VerticalLayout
@@ -45,21 +46,21 @@ public class MainView extends VerticalLayout
     public MainView(@Autowired GreetService service)
     {
         // Button click listeners can be defined as lambda expressions
-        Button addUser = new Button("Add User");
+        Button manageUsers = new Button("Manage Users");
         Button lend = new Button("Make a Lending");
         
         // Theme variants give you predefined extra styles for components.
         // Example: Primary button is more prominent look.
-        addUser.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        manageUsers.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         lend.addThemeVariants(ButtonVariant.LUMO_ICON);
         
         // Use custom CSS classes to apply styling. This is defined in shared-styles.css.
         addClassName("centered-content");
         
-        addUser.addClickListener(e -> UI.getCurrent().navigate(AddUser.class));
+        manageUsers.addClickListener(e -> UI.getCurrent().navigate(ManageUsers.class));
     
         Div buttonGroup = new Div();
-        buttonGroup.add(addUser, lend);
+        buttonGroup.add(manageUsers, lend);
         
         add(buttonGroup);
     }

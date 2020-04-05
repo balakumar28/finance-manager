@@ -11,13 +11,16 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 @Table(name = "user_finances")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class UserFinanceBase implements Serializable
 {
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
     protected String financeId;
     @JoinColumn(referencedColumnName = "userId")
     protected User userId;

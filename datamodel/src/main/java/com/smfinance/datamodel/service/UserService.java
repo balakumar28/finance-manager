@@ -3,40 +3,52 @@ package com.smfinance.datamodel.service;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
+import javax.transaction.Transactional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.smfinance.datamodel.exceptions.ObjectNotFoundException;
 import com.smfinance.datamodel.objects.User;
-import com.smfinance.datamodel.objects.UserType;
 import com.smfinance.datamodel.repositories.UserRepository;
 
-public class UserService
+@Service
+@Transactional
+public class UserService implements IService
 {
+    public static final String NAME = UserService.class.getSimpleName();
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
+    
     @Autowired
     private UserRepository userRepository;
     
     public List<User> getAllUsers()
     {
-        return userRepository.findAll();
+        List<User> users = userRepository.findAll();
+        LOGGER.debug("Returning " + users);
+        return users;
     }
     
-    public void createUser(String name, UserType type, String city)
+    public Stream<User> getUsersStream()
     {
-        createUser(name, type, city, null, null, null, null, null);
+        return userRepository.findAllAndStream();
     }
     
-    public void createUser(String name, UserType type, String city, byte[] photo, String mobile, String mobile2, String mail, String address)
+    public void persistUser(String name, String city)
     {
-        createUser(new User(name, type, mobile, mobile2, mail, address, city));
+        persistUser(name, city, null, null, null, null, null);
     }
     
-    public void createUser(User user)
+    public void persistUser(String name, String city, byte[] photo, String mobile, String mobile2, String mail, String address)
     {
-        userRepository.save(user);
+        persistUser(new User(name, mobile, mobile2, mail, address, city));
     }
     
-    public void updateUser(User user)
+    public void persistUser(User user)
     {
         userRepository.save(user);
     }
@@ -56,4 +68,13 @@ public class UserService
         return userRepository.findByName(name);
     }
     
+    public long getUsersCount()
+    {
+        return userRepository.count();
+    }
+    
+    public void deleteAll(Iterable<User> users)
+    {
+        userRepository.deleteAll(users);
+    }
 }
